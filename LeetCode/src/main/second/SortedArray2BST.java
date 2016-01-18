@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class SortedArray2BST {
     public TreeNode sortedArrayToBST(int[] a) {
         if(a == null || a.length == 0){

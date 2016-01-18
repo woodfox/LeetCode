@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class BuildTreeFromInPostOrder {
     public TreeNode buildTree(int[] in, int[] post) {
         int n = in.length;

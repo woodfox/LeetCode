@@ -1,6 +1,6 @@
 package third;
 
-import second.TreeNode;
+import util.TreeNode;
 
 /**
  * Get the min length to leaf node!!

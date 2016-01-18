@@ -1,5 +1,7 @@
 package first;
 
+import util.TreeNode;
+
 public class BuildTreeFromInPostorder {
 	public TreeNode buildTree(int[] inorder, int[] postorder) {
 		// Start typing your Java solution below

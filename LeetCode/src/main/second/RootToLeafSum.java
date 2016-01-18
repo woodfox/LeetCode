@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class RootToLeafSum {
 	public int sumNumbers(TreeNode root) {
 		if (root == null) {

@@ -45,4 +45,8 @@ trait ListHelper {
   def convertJavaList[T](array: util.List[util.List[T]]): List[List[T]] = {
     array.asScala.map(_.asScala.toList).toList
   }
+
+  def convertScalaList[T](array: List[List[T]]): util.List[util.List[T]] = {
+    array.map(_.asJava).asJava
+  }
 }

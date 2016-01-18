@@ -1,6 +1,6 @@
 package third;
 
-import second.TreeNode;
+import util.TreeNode;
 
 /**
  * It allows negative values.... So it should try to the end when left/right is not empty

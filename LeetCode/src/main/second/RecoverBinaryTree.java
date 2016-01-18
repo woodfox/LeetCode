@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class RecoverBinaryTree {
     TreeNode first, second, prev;
     

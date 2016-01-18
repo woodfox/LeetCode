@@ -1,7 +1,9 @@
 package second;
 
+import util.TreeNode;
+
 public class MaxPathSum {
-    int max;
+    private int max;
     
     public int maxPathSum(TreeNode root) {
         max  = Integer.MIN_VALUE;

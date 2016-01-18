@@ -1,5 +1,7 @@
 package first;
 
+import util.TreeNode;
+
 public class CheckSameTree {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         // Start typing your Java solution below

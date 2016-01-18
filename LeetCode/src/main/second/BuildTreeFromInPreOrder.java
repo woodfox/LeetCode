@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class BuildTreeFromInPreOrder {
     public TreeNode buildTree(int[] pre, int[] in){
         int n = in.length;

@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class BalancedBST {
     public boolean isBalanced(TreeNode root) {
         return check(root) != -1;

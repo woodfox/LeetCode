@@ -1,7 +1,7 @@
 package third;
 
 import second.ListNode;
-import second.TreeNode;
+import util.TreeNode;
 
 public class SortedListToBST {
     /**

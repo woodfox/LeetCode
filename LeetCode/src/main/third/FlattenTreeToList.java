@@ -1,6 +1,6 @@
 package third;
 
-import second.TreeNode;
+import util.TreeNode;
 
 /**
  * Time: Worst case when all nodes is in left =>

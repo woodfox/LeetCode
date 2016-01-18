@@ -1,7 +1,5 @@
 package util
 
-import TreeNode
-
 import scala.collection.mutable
 
 trait TreeHelper {

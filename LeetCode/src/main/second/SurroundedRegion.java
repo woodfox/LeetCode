@@ -2,6 +2,9 @@ package second;
 
 import java.util.LinkedList;
 
+/**
+ * Starts from nodes in outside edges and set from 'O' to 'Z', then reset all other 'O's to 'X', while 'Z' to 'O';
+ */
 public class SurroundedRegion {
 	public void solve(char[][] a) {
 		int m = a.length;

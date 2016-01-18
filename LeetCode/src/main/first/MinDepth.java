@@ -1,5 +1,7 @@
 package first;
 
+import util.TreeNode;
+
 import java.util.LinkedList;
 
 public class MinDepth {

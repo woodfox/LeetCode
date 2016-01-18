@@ -2,6 +2,7 @@ package second;
 
 import java.util.HashMap;
 
+// Not O(N)!
 public class LongestConsecutive {
 	class Node {
 		int id;

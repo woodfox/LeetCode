@@ -1,9 +1,6 @@
 package second;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 public class WordLadderII {
 	enum Color {
@@ -23,7 +20,7 @@ public class WordLadderII {
 		}
 	}
 
-	public ArrayList<ArrayList<String>> findLadders(String start, String end,
+	public List<List<String>> findLadders(String start, String end,
 			HashSet<String> dict) {
 		dict.add(start);
 		dict.add(end);
@@ -62,7 +59,7 @@ public class WordLadderII {
 		return map;
 	}
 
-	ArrayList<ArrayList<String>> bfs(Node start, Node end) {
+	List<List<String>> bfs(Node start, Node end) {
 		LinkedList<Node> q = new LinkedList<Node>();
 		start.level = 0;
 		q.add(start);
@@ -87,15 +84,15 @@ public class WordLadderII {
 		return getLadder(end, start);
 	}
 
-	ArrayList<ArrayList<String>> getLadder(Node end, Node start) {
-		ArrayList<ArrayList<String>> r = new ArrayList<ArrayList<String>>();
+	List<List<String>> getLadder(Node end, Node start) {
+		List<List<String>> r = new ArrayList<List<String>>();
 		if (end == start) {
 			ArrayList<String> sub = new ArrayList<String>();
 			sub.add(start.val);
 			r.add(sub);
 		} else {
 			for (Node p : end.parents) {
-				for (ArrayList<String> sub : getLadder(p, start)) {
+				for (List<String> sub : getLadder(p, start)) {
 					sub.add(end.val);
 					r.add(sub);
 				}

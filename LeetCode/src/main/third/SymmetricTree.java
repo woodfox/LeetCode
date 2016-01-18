@@ -1,6 +1,6 @@
 package third;
 
-import second.TreeNode;
+import util.TreeNode;
 
 public class SymmetricTree {
     /**

@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class MinDepth {
     public int minDepth(TreeNode root) {
         if(root == null){

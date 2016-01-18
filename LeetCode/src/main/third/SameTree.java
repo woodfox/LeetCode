@@ -1,6 +1,6 @@
 package third;
 
-import second.TreeNode;
+import util.TreeNode;
 
 public class SameTree {
     public boolean isSameTree(TreeNode p, TreeNode q) {

@@ -1,5 +1,7 @@
 package second;
 
+import util.TreeNode;
+
 public class FlattenBinaryTree {
 	//Limited Time Exceeded!!
     public void flatten2(TreeNode root) {
