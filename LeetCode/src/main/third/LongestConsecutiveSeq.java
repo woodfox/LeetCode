@@ -1,21 +1,13 @@
 package third;
 
+import util.Range;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-
 public class LongestConsecutiveSeq {
-    private class Range {
-        public int start;
-        public int end;
-
-        public Range(int s, int e) {
-            start = s;
-            end = e;
-        }
-    }
 
     /**
      * Best solution: Count the consecutive numbers for one element, and use a set to control

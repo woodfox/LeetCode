@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class RotateList {
     public ListNode rotateRight(ListNode head, int k) {
         if(head == null){

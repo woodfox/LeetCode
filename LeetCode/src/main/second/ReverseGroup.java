@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class ReverseGroup {
     public ListNode reverseKGroup(ListNode head, int n) {
         if(head == null || n == 0){

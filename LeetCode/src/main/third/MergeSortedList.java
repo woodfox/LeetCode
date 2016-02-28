@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 public class MergeSortedList {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {

@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class RemoveDuplicateII {
     public ListNode deleteDuplicates(ListNode head) {
         if(head == null){

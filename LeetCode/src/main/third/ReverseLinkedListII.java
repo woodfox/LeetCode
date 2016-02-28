@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 public class ReverseLinkedListII {
     public ListNode reverseBetween(ListNode head, int m, int n) {

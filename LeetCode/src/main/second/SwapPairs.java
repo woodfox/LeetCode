@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class SwapPairs {
     public ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null){

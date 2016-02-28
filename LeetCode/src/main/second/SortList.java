@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class SortList {
     public ListNode sortList(ListNode head) {
         if(head == null){

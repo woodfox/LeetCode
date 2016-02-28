@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class ListCycleII {
     public ListNode detectCycle(ListNode head) {
         if(head == null){

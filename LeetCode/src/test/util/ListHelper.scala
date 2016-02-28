@@ -2,7 +2,6 @@ package util
 
 import java.util
 
-import second.ListNode
 import scala.collection.JavaConverters._
 
 trait ListHelper {
@@ -48,5 +47,13 @@ trait ListHelper {
 
   def convertScalaList[T](array: List[List[T]]): util.List[util.List[T]] = {
     array.map(_.asJava).asJava
+  }
+
+  def endOfList(head: ListNode): ListNode = {
+    var node = head
+    while(node.next != null) {
+      node = node.next
+    }
+    node
   }
 }

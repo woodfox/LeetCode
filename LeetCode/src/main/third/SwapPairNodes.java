@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 public class SwapPairNodes {
     public ListNode swapPairs(ListNode head) {

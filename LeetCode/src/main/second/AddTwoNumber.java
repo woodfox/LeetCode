@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class AddTwoNumber {
     public ListNode addTwoNumbers(ListNode a, ListNode b) {
         if(a == null){

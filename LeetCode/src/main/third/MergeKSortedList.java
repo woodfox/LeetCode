@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 import java.util.List;
 import java.util.PriorityQueue;

@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 public class ReverseListWithKGroup {
     //Danger: be careful of the k group length!

@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 public class RemoveNthNodeFromEnd {
     public ListNode removeNthFromEnd(ListNode head, int n) {

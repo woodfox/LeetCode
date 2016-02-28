@@ -1,6 +1,6 @@
 package third;
 
-import second.ListNode;
+import util.ListNode;
 
 public class RemoveDuplicateInSortedListII {
     public ListNode deleteDuplicates(ListNode head) {

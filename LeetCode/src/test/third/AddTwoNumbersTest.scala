@@ -2,7 +2,7 @@ package third
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
-import second.ListNode
+import util.ListNode
 
 class AddTwoNumbersTest extends FunSuite with ShouldMatchers {
   test("it should add two list correctly") {

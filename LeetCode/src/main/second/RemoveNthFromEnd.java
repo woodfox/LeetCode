@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class RemoveNthFromEnd {
 	public ListNode removeNthFromEnd(ListNode head, int n) {
         if(head == null || n == 0){

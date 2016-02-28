@@ -1,5 +1,7 @@
 package second;
 
+import util.ListNode;
+
 public class MergeSortedList {
     public ListNode mergeTwoLists(ListNode a, ListNode b) {
         if(a == null){
