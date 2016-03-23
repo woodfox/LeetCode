@@ -1,36 +1,75 @@
 package third;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PermutationSeq {
+    /**
+     * Get digit one by one according to k and total digits.
+     *
+     * Time: O(n)
+     */
     public String getPermutation(int n, int k) {
-        List<Integer> list = new ArrayList<Integer>();
-        for(int i=1;i<=n;i++) list.add(i);
-
-        StringBuffer result = new StringBuffer();
-        //Use k-1 as position starting from 0
-        getKthPermutation(list, k-1, result);
-
-        return result.toString();
+        if(n==1) return "1";
+        List<Integer> l = new ArrayList();
+        for(int i=1;i<=n;i++){
+            l.add(i);
+        }
+        int[] total = new int[n+1];
+        total[0] = 1;
+        for(int i=1;i<=n;i++){
+            total[i] = total[i-1]*i;
+        }
+        return getKth(l, k-1, total);
     }
 
-    private void getKthPermutation(List<Integer> list, int k, StringBuffer result){
-        int n = list.size();
-        //Danger: exit if there is no integer in list!!
-        if(n == 0) return;
+    private String getKth(List<Integer> l, int k, int[] total) {
+        int n = l.size();
+        if(n==0) return "";
 
-        int total = (int)getTotal(n-1);
-        int pos = k/total;
-        result.append(list.get(pos));
-        //Delete the used integer
-        list.remove(pos);
-        getKthPermutation(list, (int)(k%total), result);
+        StringBuffer sb = new StringBuffer();
+        int pos = k/total[n-1];
+        sb.append(l.remove(pos));
+        sb.append(getKth(l, k%total[n-1], total));
+
+        return sb.toString();
     }
 
-    private long getTotal(int n) {
-        long result = 1;
-        for(int i=1;i<=n;i++) result *= i;
-        return result;
+    /**
+     * Find the next larger number by swapping two digits.
+     *
+     * Time: O(kn)
+     */
+    public String getPermutation_byNext(int n, int k) {
+        if(n==1) return "1";
+        char[] a = new char[n];
+        for(int i=1;i<=n;i++){
+            a[i-1] = (char)('0' + i);
+        }
+        for(int i=0;i<k-1;i++){
+            getNext(a);
+        }
+        return new String(a);
+    }
+
+    private void getNext(char[] a) {
+        int n = a.length;
+        int i = n-2;
+        while(i>=0 && a[i] >= a[i+1]) {
+            i--;
+        }
+
+        if(i<0) {
+            // Restore back to first number if k is too large
+            Arrays.sort(a);
+        } else {
+            int j = n-1;
+            while(a[j] < a[i]) j--;
+            char tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+            Arrays.sort(a, i+1, n);
+        }
     }
 }

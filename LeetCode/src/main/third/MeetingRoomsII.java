@@ -1,5 +1,7 @@
 package third;
 
+import util.Interval;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,6 +49,35 @@ public class MeetingRoomsII {
             q.poll();
             count--;
         }
+        return rooms;
+    }
+
+    int minMeetingRooms_simple(List<Interval> l) {
+        Collections.sort(l, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                return o1.start - o2.start;
+            }
+        });
+
+        PriorityQueue<Integer> q = new PriorityQueue<Integer>();
+        int count = 0;
+        int pos = 0;
+        int rooms = 0;
+        int n = l.size();
+        while(pos < n) {
+            Interval interval = l.get(pos);
+            if(q.isEmpty() || interval.start < q.peek()) {
+                q.add(interval.end);
+                pos++;
+                count++;
+            } else {
+                q.poll();
+                count--;
+            }
+            rooms = Math.max(rooms, count);
+        }
+
         return rooms;
     }
 }

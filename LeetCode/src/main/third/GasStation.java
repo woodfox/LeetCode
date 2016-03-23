@@ -11,29 +11,20 @@ public class GasStation {
      */
     public int canCompleteCircuit(int[] gas, int[] cost) {
         int n = gas.length;
-        if(n == 0) return -1;
-
-        int[] remains = new int[n*2];
-        for(int i=0;i<n*2;i++){
-            int index = i%n;
-            remains[i] = gas[index] - cost[index];
-        }
-
-        int[] sum = new int[n*2];
-        sum[0] = remains[0];
+        if(n==0) return -1;
+        int remains = gas[0] - cost[0];
         int pos = 0;
-
-        for(int i=1;i<n*2;i++) {
-            if(sum[i-1] >= 0) {
-                sum[i] = sum[i - 1] + remains[i];
+        for(int i=1;i<2*n;i++){
+            int j = i%n;
+            if(remains >= 0) {
+                remains += gas[j] - cost[j];
             } else {
-                sum[i] = remains[i];
+                remains = gas[j] - cost[j];
+                // Reset the position
                 pos = i;
             }
-            // Reach the end that still has gas, return the starting point
-            if(sum[i] >= 0 && (i-pos+1) >= n) {
-                return pos;
-            }
+
+            if(remains >=0 && i-pos>=n) return pos;
         }
         return -1;
     }

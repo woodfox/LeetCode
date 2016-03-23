@@ -4,7 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WildcardMatch {
+    /**
+     * dp(i,j) = dp(i-1,j-1) if s[i]==p[j] or p[j]= . or p[j] = *
+     *        || dp(i-1, j) || dp(i, j-1) if p[j] = *
+     */
     public boolean isMatch(String s, String p) {
+        int m = s.length();
+        int n = p.length();
+        boolean[][] dp = new boolean[m+1][n+1];
+        for(int i=0;i<=m;i++){
+            for(int j=0;j<=n;j++){
+                if(i==0 && j==0){
+                    dp[i][j] = true;
+                } else if(j==0){
+                    dp[i][j] = false;
+                } else if(i==0){
+                    dp[i][j] = dp[i][j-1] && p.charAt(j-1) == '*';
+                } else {
+                    char c = s.charAt(i-1);
+                    char d = p.charAt(j-1);
+                    if(d=='*'){
+                        dp[i][j] = dp[i][j-1] || dp[i-1][j];
+                    }
+                    if(c==d || d=='?' || d=='*'){
+                        dp[i][j] = dp[i][j] || dp[i-1][j-1];
+                    }
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
+
+    public boolean isMatch_complex(String s, String p) {
         if(s == null || p == null) return false;
 
         return isMatchPattern(s, splitByStar(p));
@@ -45,13 +77,6 @@ public class WildcardMatch {
                 return isMatchPattern(s.substring(pos + n), patterns.subList(2, patterns.size()));
             else
                 return false;
-//            while(pos >= 0){
-//                if(isMatchPattern(s.substring(pos + n), patterns.subList(2, patterns.size()))){
-//                    return true;
-//                }
-//                pos = findPosition(s, pos + 1, subString);
-//            }
-//            return false;
         }
     }
 

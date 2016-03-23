@@ -19,6 +19,39 @@ import java.util.*;
  */
 public class ClosestBSTValueII {
     /**
+     * Iterate tree with inorder (smaller to larger value) and use LinkedList to save first k closet values.
+     * If later value is smaller than first element in queue, pop the first value and save new value.
+     *
+     * Time: O(n),  Space: O(k)
+     */
+    List<Integer> closestKValues_best(TreeNode root, final double t, int k) {
+        LinkedList<Integer> q = new LinkedList();
+        inorderDfs(root, q, t, k);
+        return q;
+    }
+
+    private void inorderDfs(TreeNode root, LinkedList<Integer> q, double t, int k) {
+        if(root == null) return;
+
+        inorderDfs(root.left, q, t, k);
+
+        if(q.size() < k) {
+            q.addLast(root.val);
+        } else {
+            int first = q.getFirst();
+            if(Math.abs(root.val-t) < Math.abs(first-t)){
+                q.removeFirst();
+                q.addLast(root.val);
+            } else {
+                // Do not need to try remaining values; they are larger than existing k values.
+                return;
+            }
+        }
+
+        inorderDfs(root.right, q, t, k);
+    }
+
+    /**
      * Use left and right pointer to find k closest numbers in sorted list from BST.
      *
      * Time: O(n),  Space: O(n)

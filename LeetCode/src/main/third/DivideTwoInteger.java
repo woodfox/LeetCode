@@ -41,4 +41,38 @@ public class DivideTwoInteger {
 
         return (int)result;
     }
+
+    //-------------------------------------
+    //Time: O(logn)
+    public int divide_another(int a, int b) {
+        long x = (long)a;
+        long y = (long)b;
+        long r;
+        if(x<0 && y<0){
+            r = calc(-x, -y);
+        } else if(x<0){
+            r = -1*calc(-x, y);
+        } else if(y<0){
+            r = -1*calc(x, -y);
+        } else {
+            r = calc(x, y);
+        }
+        if(r<Integer.MIN_VALUE || r>Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }
+        return (int)r;
+    }
+
+    private long calc(long x, long y){
+        if(x<y) return 0;
+        else if(y==1) return x;
+
+        long r = 1;
+        long tmp = y;
+        while(tmp + tmp <= x){
+            tmp += tmp;
+            r += r;
+        }
+        return r + calc(x-tmp, y);
+    }
 }

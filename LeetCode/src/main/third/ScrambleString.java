@@ -9,6 +9,8 @@ public class ScrambleString {
      * Time Complexity:
      * f(n) = Sum(2(f(i) + f(n-i))), i = 1..n-1
      *      = O(4^n)?
+     *
+     * Should use int[256] to count characters and compare if string are similar, which is better than toCharArray and sort.
      */
     public boolean isScramble(String s1, String s2) {
         if(s1 == null || s2 == null || s1.length() != s2.length()) return false;
@@ -18,7 +20,6 @@ public class ScrambleString {
         if(!checkCharacters(s1, s2)) return false;
 
         int n = s1.length();
-        System.err.println("n:" + n);
         for(int i=1;i<n;i++){
             String left1 = s1.substring(0, i);
             String right1 = s1.substring(i);

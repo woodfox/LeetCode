@@ -35,4 +35,32 @@ class RecurringFractionTest extends FunSuite with ShouldMatchers {
     r.fractionToDecimal(-2147483648, 1) should be("-2147483648")
   }
 
+  test("linkedHashMap should work") {
+    r.fractionToDecimal_linkedHashMap(-2, 3) should be("-0.(6)")
+    r.fractionToDecimal_linkedHashMap(9, -101) should be("-0.(0891)")
+    r.fractionToDecimal_linkedHashMap(-1, -7) should be("0.(142857)")
+    r.fractionToDecimal_linkedHashMap(-11, 7) should be("-1.(571428)")
+
+    r.fractionToDecimal_linkedHashMap(2, 3) should be("0.(6)")
+    r.fractionToDecimal_linkedHashMap(20, 3) should be("6.(6)")
+
+    r.fractionToDecimal_linkedHashMap(1, 3) should be("0.(3)")
+
+    r.fractionToDecimal_linkedHashMap(9, 101) should be("0.(0891)")
+    r.fractionToDecimal_linkedHashMap(90, 101) should be("0.(8910)")
+    r.fractionToDecimal_linkedHashMap(900, 101) should be("8.(9108)")
+    r.fractionToDecimal_linkedHashMap(9000, 101) should be("89.(1089)")
+    r.fractionToDecimal_linkedHashMap(90000, 101) should be("891.(0891)")
+
+    r.fractionToDecimal_linkedHashMap(1, 7) should be("0.(142857)")
+    r.fractionToDecimal_linkedHashMap(10, 7) should be("1.(428571)")
+    r.fractionToDecimal_linkedHashMap(100, 7) should be("14.(285714)")
+
+    r.fractionToDecimal_linkedHashMap(11, 7) should be("1.(571428)")
+    r.fractionToDecimal_linkedHashMap(110, 7) should be("15.(714285)")
+
+    r.fractionToDecimal_linkedHashMap(-1, -2147483648) should be("0.0000000004656612873077392578125")
+    r.fractionToDecimal_linkedHashMap(2147483647, 1) should be("2147483647")
+    r.fractionToDecimal_linkedHashMap(-2147483648, 1) should be("-2147483648")
+  }
 }

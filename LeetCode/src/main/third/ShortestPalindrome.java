@@ -25,8 +25,14 @@ public class ShortestPalindrome {
         StringBuffer sb = new StringBuffer(s);
         sb.reverse();
         String t = s+"#"+sb.toString();
+        int[] p = calcPrefix(t);
 
         int n = s.length();
+        // Prepend the non-match part in the beginning
+        return sb.substring(0, n-p[p.length-1]) + s;
+    }
+
+    int[] calcPrefix(String t){
         int[] p = new int[t.length()];
         p[0] = 0;
         for(int i=1;i<p.length;i++) {
@@ -40,9 +46,7 @@ public class ShortestPalindrome {
                 p[i] = k;
             }
         }
-
-        // Prepend the non-match part in the beginning
-        return sb.substring(0, n-p[p.length-1]) + s;
+        return p;
     }
 
     /**

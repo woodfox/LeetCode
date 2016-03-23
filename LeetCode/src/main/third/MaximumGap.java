@@ -11,6 +11,46 @@ package third;
  */
 public class MaximumGap {
     /**
+     * Radix sort for 31 digits based on count sort (stable).
+     * Or it can use bucket sort which is stable as well (use two linked list to save elements in order).
+     *
+     * Time: O(31*n)
+     */
+    public int maximumGap(int[] a) {
+        int n = a.length;
+        if(n<2) return 0;
+
+        for(int i=0;i<31;i++){
+            // use another array to count sort on one digit (stable sort)
+            int[] b = new int[n];
+            int l = 0;
+            int r = n-1;
+            for(int j=0;j<a.length;j++){
+                int x = a[j] & (1<<i);
+                if(x == 0){
+                    b[l++] = a[j];
+                } else {
+                    b[r--] = a[j];
+                }
+            }
+
+            int p = 0;
+            for(int j=0;j<l;j++){
+                a[p++] = b[j];
+            }
+            for(int j=n-1;j>r;j--){
+                a[p++] = b[j];
+            }
+        }
+
+        int diff = 0;
+        for(int i=0;i<a.length-1;i++){
+            diff = Math.max(diff, a[i+1]-a[i]);
+        }
+        return diff;
+    }
+
+    /**
      * Find the max and min numbers first in array, and use bucket sort to find maximum range.
      * Set bucket length = (max-min)/n+1,  and bucket number is n.
      * The max difference would be between different buckets (if max diff is in same bucket, there would be no empty bucket,
@@ -19,7 +59,7 @@ public class MaximumGap {
      * Time: O(n)
      * Space: O(n) at most
      */
-    public int maximumGap(int[] nums) {
+    public int maximumGap_enhancedCountSort(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }

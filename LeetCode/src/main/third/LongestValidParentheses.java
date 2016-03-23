@@ -3,7 +3,62 @@ package third;
 import java.util.LinkedList;
 
 public class LongestValidParentheses {
+    // Merge valid parentheses when adding new character by recursive call to make the logic simpler
+    // Time: O(n)
     public int longestValidParentheses(String s) {
+        int n = s.length();
+        if(n==0) return 0;
+
+        LinkedList<Integer> q = new LinkedList();
+        for(int i=0;i<n;i++){
+            char c = s.charAt(i);
+            if(c=='('){
+                q.add(-1);
+            } else {
+                insert(q, -2);
+            }
+        }
+
+        int max = 0;
+        for(int x: q){
+            max = Math.max(max, x);
+        }
+        return max;
+    }
+
+    private void insert(LinkedList<Integer> q, int x){
+        if(q.isEmpty()) q.add(x);
+        else if(x==-2){
+            int prev = q.getLast();
+            if(prev == -1){
+                // Merge ()
+                q.removeLast();
+                insert(q, 2);
+            }else if(prev > 0){
+                int a = q.removeLast();
+                if(!q.isEmpty() && q.getLast() == -1){
+                    // Merge (a) to a+1
+                    q.removeLast();
+                    insert(q, a+2);
+                } else {
+                    // Restore a
+                    q.add(a);
+                    q.add(x);
+                }
+            }
+        } else {
+            int prev = q.getLast();
+            if(prev > 0){
+                // Merge valid numbers
+                q.removeLast();
+                insert(q, prev+x);
+            } else {
+                q.add(x);
+            }
+        }
+    }
+
+    public int longestValidParentheses_complex(String s) {
         if(s == null || s.length() == 0) return 0;
 
         LinkedList<Integer> list = new LinkedList<Integer>();

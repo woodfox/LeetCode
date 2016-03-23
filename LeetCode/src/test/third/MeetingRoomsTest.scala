@@ -2,6 +2,7 @@ package third
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
+import util.Interval
 import scala.collection.JavaConversions._
 import scala.collection.mutable.ListBuffer
 

@@ -56,6 +56,93 @@ public class CountOfRangeSum {
     }
 
     /**
+     * ---------------------------------------------------------------------
+     * Use BST to save the previous sum and find the count of previous sum in range in O(longn)
+     * l <= sum[i] - sum[j] <= h        =>  sum[i]-h <= sum[j] <= sum[i]-l
+     *
+     * Time: O(nlogn)
+     */
+    Tree tree = new Tree();
+    public int countRangeSum_BST(int[] a, int lower, int upper) {
+        // Init tree every time
+        tree = new Tree();
+
+        int n = a.length;
+        if(n == 0) return 0;
+        int count = 0;
+        long sum = 0;
+        for(int i=0;i<n;i++){
+            sum+=a[i];
+            if(sum>=lower && sum<=upper) count++;
+            count += tree.smaller(sum-lower, true) - tree.smaller(sum-upper, false);
+
+            // Add current sum into BST
+            tree.insert(sum);
+        }
+        return count;
+    }
+
+    private class Tree {
+        Node root;
+        public void insert(long val) {
+            if(root == null) {
+                root = new Node(val);
+            } else {
+                insertNode(root, val);
+            }
+        }
+
+        private void insertNode(Node root, long val) {
+            if(root.val == val) {
+                root.self++;
+            } else if(root.val > val){
+                root.smaller++;
+                if(root.left == null){
+                    root.left = new Node(val);
+                }else{
+                    insertNode(root.left, val);
+                }
+            }else {
+                if(root.right == null){
+                    root.right = new Node(val);
+                }else{
+                    insertNode(root.right, val);
+                }
+            }
+        }
+
+        public int smaller(long val, boolean inclusive){
+            return smallerNode(root, val, inclusive);
+        }
+
+        private int smallerNode(Node root, long val, boolean inclusive){
+            if(root == null) return 0;
+            else if(root.val == val) {
+                int r = root.smaller;
+                if(inclusive) r += root.self;
+                return r;
+            } else if(root.val > val){
+                return smallerNode(root.left, val, inclusive);
+            } else {
+                return root.self + root.smaller + smallerNode(root.right, val, inclusive);
+            }
+        }
+    }
+
+    private class Node {
+        int self = 1;
+        int smaller = 0;
+        long val;
+        Node left;
+        Node right;
+
+        public Node(long val) {
+            this.val = val;
+        }
+    }
+
+    /**
+     * ----------------------------------------------------------------
      * Calcuate sum of [0,n], and for every position i, check how many positions on right that has diff within range [low, high].
      * Use merge sort to reduce time since the right part is already sorted and it only needs to access once.
      *
@@ -126,9 +213,4 @@ public class CountOfRangeSum {
 
         return total;
     }
-
-    /**
-     * Use Binary Search Tree?
-     * Too complicated...  Ignored
-     */
 }

@@ -8,7 +8,7 @@ class AnagramTest extends FunSuite with ShouldMatchers {
   val t = new Anagram
 
   test("should find all anagram strings") {
-    t.anagrams(Array("abcde", "ab", "ba", "a", "acdeb", "abc")).asScala.toSet should be(Set("ab","ba","abcde","acdeb"))
+    t.groupAnagrams(Array("abcde", "ab", "ba", "a", "acdeb", "abc")).asScala.toSet should be(Set("ab","ba","abcde","acdeb"))
   }
 
   test("scala version should find all anagram strings") {

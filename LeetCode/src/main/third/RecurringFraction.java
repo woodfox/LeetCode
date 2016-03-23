@@ -1,9 +1,6 @@
 package third;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -80,6 +77,55 @@ public class RecurringFraction {
         long a = remain * 10;
         list.add(remain);
         map.put(remain, a/b);
-        return calcFraction(a%b, b, list, map);
+        return calcFraction(a % b, b, list, map);
+    }
+
+    /**
+     * Use LinkedHashMap to maintain the decimal points and find the loop.
+     */
+    public String fractionToDecimal_linkedHashMap(int a, int b) {
+        if(a < 0||b<0) {
+            String flag = "";
+            if(((long)a)*b < 0) flag = "-";
+            return flag + toDecimal(Math.abs((long)a), Math.abs((long)b));
+        }
+
+        return toDecimal(a, b);
+    }
+
+    private String toDecimal(long a, long b) {
+        StringBuffer sb = new StringBuffer();
+        if(a>=b){
+            sb.append(a/b);
+            a = a%b;
+        }else {
+            sb.append(0);
+        }
+        if(a ==0) return sb.toString();
+
+        a *= 10;
+        long dup = -1;
+        LinkedHashMap<Long,Long> map = new LinkedHashMap();
+        while(a > 0) {
+            if(map.containsKey(a)) {
+                dup = a;
+                break;
+            } else if(a<b){
+                map.put(a, 0L);
+            } else {
+                map.put(a, a/b);
+                a = a%b;
+            }
+            a *= 10;
+        }
+
+        sb.append(".");
+        for(long k : map.keySet()){
+            if(dup == k) sb.append("(");
+            sb.append(map.get(k));
+        }
+        if(dup > 0) sb.append(")");
+
+        return sb.toString();
     }
 }

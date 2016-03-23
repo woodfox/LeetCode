@@ -1,6 +1,7 @@
 package second;
 
 public class ScrambleString {
+    // Time Complexity: O(n^4)
     public boolean isScramble(String s1, String s2) {
         if(s1 == null || s2 == null){
             return false;

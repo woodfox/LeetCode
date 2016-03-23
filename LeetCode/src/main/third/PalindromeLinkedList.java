@@ -2,6 +2,8 @@ package third;
 
 import util.ListNode;
 
+import java.util.LinkedList;
+
 /**
  * Given a singly linked list, determine if it is a palindrome
  */
@@ -61,5 +63,25 @@ public class PalindromeLinkedList {
 
         // Prev is the last element
         return prev;
+    }
+
+    /**
+     * Use O(n) space to store node values in linkedlist and comapre first and last
+     */
+    public boolean isPalindrome_moreSpace(ListNode head) {
+        LinkedList<Integer> q = new LinkedList();
+        ListNode node = head;
+        while(node != null){
+            q.add(node.val);
+            node = node.next;
+        }
+        while(q.size() > 1){
+            int first = q.removeFirst();
+            int last = q.removeLast();
+            if(first != last) {
+                return false;
+            }
+        }
+        return true;
     }
 }

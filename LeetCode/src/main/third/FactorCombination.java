@@ -13,6 +13,31 @@ import java.util.*;
  Input: 28 Output: [[2, 2, 7], [2, 14], [4, 7]]
  */
 public class FactorCombination {
+    public List<List<Integer>> combineFactors_simple(int n){
+        if(n<=3) return new ArrayList<List<Integer>>();
+
+        Map<Integer, List<List<Integer>>> map = new HashMap();
+        return calc(n, map);
+    }
+
+    private List<List<Integer>> calc(int n, Map<Integer, List<List<Integer>>> map) {
+        if(map.containsKey(n)) return map.get(n);
+
+        List<List<Integer>> r = new ArrayList();
+        for(int i=2;i<=Math.sqrt(n);i++){
+            if(n%i==0){
+                r.add(Arrays.asList(i, n / i));
+                for(List<Integer> sub : calc(n/i, map)) {
+                    List<Integer> dup = new ArrayList(sub);
+                    dup.add(0, i);
+                    r.add(dup);
+                }
+            }
+        }
+        map.put(n, r);
+        return r;
+    }
+
     /**
      * Get all combinations of numbers < n
      */

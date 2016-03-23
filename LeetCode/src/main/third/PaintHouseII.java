@@ -48,11 +48,6 @@ public class PaintHouseII {
             min2 = min4;
         }
 
-        int cost = Integer.MAX_VALUE;
-        for(int j=0;j<n;j++){
-            cost = Math.min(cost, dp[m-1][j]);
-        }
-
-        return cost;
+        return dp[m-1][min1];
     }
 }

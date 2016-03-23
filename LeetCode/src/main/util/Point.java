@@ -4,14 +4,18 @@ public class Point {
     public int x;
     public int y;
 
-    Point() {
+    public Point() {
         x = 0;
         y = 0;
     }
 
-    Point(int a, int b) {
+    public Point(int a, int b) {
         x = a;
         y = b;
+    }
+
+    public String toString() {
+        return "x:" + x + ",y:" + y;
     }
 
 }

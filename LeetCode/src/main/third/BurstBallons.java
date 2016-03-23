@@ -32,6 +32,8 @@ public class BurstBallons {
      * (j-i>=2)
      *
      * Reference: https://leetcode.com/discuss/72216/share-some-analysis-and-explanations
+     *
+     * Time: O(n^3)
      */
     public int maxCoins(int[] nums) {
         int n = nums.length;

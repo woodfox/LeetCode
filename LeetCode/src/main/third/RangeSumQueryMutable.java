@@ -68,86 +68,75 @@ public class RangeSumQueryMutable {
     // Use Segment Tree to update
     private class RangeSumQueryMutable_segmentTree {
 
-        private class TreeNode {
-            int val;
-            TreeNode left;
-            TreeNode right;
-
-            public TreeNode(int v) {
-                val = v;
+        class Node {
+            public long sum;
+            public int start, end;
+            public Node left, right;
+            public Node(long sum, int start, int end) {
+                this.sum = sum;
+                this.start = start;
+                this.end = end;
             }
         }
 
-        private int[] nums;
-        private int[] sum;
-        private TreeNode root;
+        Node root;
+        int[] a;
 
-        public RangeSumQueryMutable_segmentTree(int[] nums) {
-            this.nums = nums;
-            int n = nums.length;
-            if (n == 0) return;
-
-            sum = new int[n + 1];
-            for (int i = 0; i < n; i++) {
-                sum[i + 1] = sum[i] + nums[i];
-            }
-
-            root = new TreeNode(sum[n]);
-            buildSegmentTree(sum, 0, n - 1, root);
+        public RangeSumQueryMutable_segmentTree(int[] a) {
+            this.a = a;
+            root = buildSegmentTree(a, 0, a.length-1);
         }
 
-        private void buildSegmentTree(int[] sum, int l, int r, TreeNode root) {
-            if (l < r) {
-                int m = (l + r) / 2;
-                // Sum[m+1] - sum[l] is the sum for range [l, m]
-                root.left = new TreeNode(sum[m + 1] - sum[l]);
-                // Sum[r+1] - sum[m+1] is the sum for range [m+1, r]
-                root.right = new TreeNode(sum[r + 1] - sum[m + 1]);
-
-                buildSegmentTree(sum, l, m, root.left);
-                buildSegmentTree(sum, m + 1, r, root.right);
+        //O(nlogn)
+        private Node buildSegmentTree(int[] a, int start, int end) {
+            if(start > end) return null;
+            else if(start == end) {
+                return new Node(a[start], start, end);
+            } else {
+                int m = (start + end)/2;
+                Node left = buildSegmentTree(a, start, m);
+                Node right = buildSegmentTree(a, m+1, end);
+                Node r = new Node(left.sum + right.sum, start, end);
+                r.left = left;
+                r.right = right;
+                return r;
             }
         }
 
         // Update range sum from root to leaf
         // O(logn)
-        void update(int i, int val) {
-            int diff = val - nums[i];
-            nums[i] = val;
-            updateNode(i, diff, 0, nums.length - 1, root);
+        void update(int index, int val) {
+            int diff = val - nums[index];
+            nums[index] = val;
+            modifyNode(root, index, diff);
         }
 
-        private void updateNode(int i, int diff, int l, int r, TreeNode root) {
-            root.val += diff;
-            if (l == i && r == i) return;
+        private void modifyNode(Node root, int index, int diff){
+            if(root==null || index<root.start || index>root.end) return;
 
-            int m = (l + r) / 2;
-            if (i <= m) {
-                updateNode(i, diff, l, m, root.left);
-            } else {
-                updateNode(i, diff, m + 1, r, root.right);
-            }
+            root.sum += diff;
+            modifyNode(root.left, index, diff);
+            modifyNode(root.right, index, diff);
         }
 
         // Time: O(logn)
-        public int sumRange(int i, int j) {
-            if (i < 0 || i > j || j >= nums.length) return -1;
-            return getSum(i, j, 0, nums.length - 1, root);
+        public long sumRange(int start, int end) {
+            if (start < 0 || start > end || end >= nums.length) return -1;
+            return queryNode(root, start, end);
         }
 
-        private int getSum(int i, int j, int l, int r, TreeNode root) {
-            if (i == l && j == r) return root.val;
+        private long queryNode(Node root, int start, int end) {
+            if(root==null) return Integer.MIN_VALUE;
 
-            int m = (l + r) / 2;
-            if (i > m) {
-                // The range [i,j] is on right side
-                return getSum(i, j, m + 1, r, root.right);
-            } else if (j <= m) {
-                // The range [i,j] is on left side
-                return getSum(i, j, l, m, root.left);
+            int m = (root.start + root.end)/2;
+            if(root.start == start && root.end == end) {
+                return root.sum;
+            } else if(start > m) {
+                return queryNode(root.right, start, end);
+            } else if(end <= m){
+                return queryNode(root.left, start, end);
             } else {
-                // The range [i,j] is in both sides [i,m] + [m+1,j]
-                return getSum(i, m, l, m, root.left) + getSum(m + 1, j, m + 1, r, root.right);
+                return queryNode(root.left, start, m) + queryNode(root.right, m+1, end);
             }
         }
     }

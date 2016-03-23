@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PalindromePartition {
     // Use DP to pre-calculate palindrome mapping for performance
+    // Time in worst case: f(n) = f(n-1) + f(n-2) + ... = O(2^n)
     public List<List<String>> partition_dp(String s) {
         List<List<String>> result = new ArrayList<List<String>>();
 

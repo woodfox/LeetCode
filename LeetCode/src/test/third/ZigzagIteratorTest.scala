@@ -77,4 +77,26 @@ class ZigzagIteratorTest extends FunSuite with ShouldMatchers {
     }
     r.toList should be(List(1,7,9,10,12,2,8,11,13,3,14,4,5,6))
   }
+
+  test("queue version of k list should work ") {
+    val a:List[List[Integer]] = List(List(1,2),List(3,4,5,6),List(), List(7),List(8,9,10))
+    val z = new ZigzagIteratorWithKList_queue(a.map(_.asJava))
+
+    val r = ListBuffer[Integer]()
+    while(z.hasNext) {
+      r += z.next()
+    }
+    r.toList should be(List(1,3,7,8,2,4,9,5,10,6))
+  }
+
+  test("queue version of k list should work if first is longer") {
+    val a:List[List[Integer]] = List(List(1,2,3,4,5,6),List(7,8),List(9), List(10,11),List(12,13,14))
+    val z = new ZigzagIteratorWithKList_queue(a.map(_.asJava))
+
+    val r = ListBuffer[Integer]()
+    while(z.hasNext) {
+      r += z.next()
+    }
+    r.toList should be(List(1,7,9,10,12,2,8,11,13,3,14,4,5,6))
+  }
 }

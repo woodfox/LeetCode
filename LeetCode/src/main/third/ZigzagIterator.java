@@ -43,17 +43,17 @@ import java.util.PriorityQueue;
     }
 
     /**
-     * Extend to k lists with value in order:
+     * Extend to k lists with value sorted in order:
      *   Use priority queue to get all digits in position and get one by one in order.
      *
      * Time: O(n*klgk), n is the average length of list
      */
-    class ZigzagIteratorWithKListInOrder {
+    class ZigzagIteratorWithKListSortInOrder {
         private List<List<Integer>> l;
         int pos = 0;
         PriorityQueue<Integer> q = new PriorityQueue<Integer>();
 
-        public ZigzagIteratorWithKListInOrder(List<List<Integer>> l) {
+        public ZigzagIteratorWithKListSortInOrder(List<List<Integer>> l) {
             this.l = l;
         }
 

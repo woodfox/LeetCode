@@ -31,6 +31,19 @@ class CountOfRangeSumTest extends FunSuite with ShouldMatchers {
     t.countRangeSum(Array(-2147483647,0,-2147483647,2147483647), -564, 3864) should be(3)
   }
 
+  test("BST version should work") {
+    t.countRangeSum_BST(Array(), -1, 3) should be(0)
+    t.countRangeSum_BST(Array(-1,1), 0, 0) should be(1)
+    t.countRangeSum_BST(Array(2), -1, 3) should be(1)
+    t.countRangeSum_BST(Array(2,1), -1, 3) should be(3)
+    t.countRangeSum_BST(Array(2,3), -1, 3) should be(2)
+    t.countRangeSum_BST(Array(2,-1,3), -1, 3) should be(5)
+    t.countRangeSum_BST(Array(-2,5,-1), -2, 2) should be(3)
+    t.countRangeSum_BST(Array(1,-3,2,5,4), -3, 6) should be(10)
+
+    t.countRangeSum_BST(Array(-2147483647,0,-2147483647,2147483647), -564, 3864) should be(3)
+  }
+
   test("naive way should work") {
         t.countRangeSum_naive(Array(), -1, 3) should be(0)
         t.countRangeSum_naive(Array(-1,1), 0, 0) should be(1)
@@ -43,17 +56,4 @@ class CountOfRangeSumTest extends FunSuite with ShouldMatchers {
 
         t.countRangeSum_naive(Array(-2147483647,0,-2147483647,2147483647), -564, 3864) should be(3)
   }
-//
-//  test("slow way should work") {
-//    t.countRangeSum_slow(Array(), -1, 3) should be(0)
-//    t.countRangeSum_slow(Array(-1,1), 0, 0) should be(1)
-//    t.countRangeSum_slow(Array(2), -1, 3) should be(1)
-//    t.countRangeSum_slow(Array(2,1), -1, 3) should be(3)
-//    t.countRangeSum_slow(Array(2,3), -1, 3) should be(2)
-//    t.countRangeSum_slow(Array(2,-1,3), -1, 3) should be(5)
-//    t.countRangeSum_slow(Array(-2,5,-1), -2, 2) should be(3)
-//    t.countRangeSum_slow(Array(1,-3,2,5,4), -3, 6) should be(10)
-//
-//    t.countRangeSum_slow(Array(-2147483647,0,-2147483647,2147483647), -564, 3864) should be(3)
-//  }
 }

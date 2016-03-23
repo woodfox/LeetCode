@@ -1,5 +1,7 @@
 package third;
 
+import util.DisjointSet;
+
 import java.util.*;
 
 /**
@@ -63,5 +65,18 @@ public class GraphValidTree {
         }
 
         return true;
+    }
+
+    public boolean validTree_disjointSet(int n, int[][] edges) {
+        DisjointSet set = new DisjointSet(n);
+        Set<Integer> visited = new HashSet();
+        for(int[] edge : edges){
+            if(!set.union(edge[0], edge[1])) return false;
+
+            visited.add(edge[0]);
+            visited.add(edge[1]);
+        }
+
+        return visited.size()==n;
     }
 }

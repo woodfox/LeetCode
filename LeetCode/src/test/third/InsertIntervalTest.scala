@@ -2,6 +2,7 @@ package third
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
+import util.Interval
 import scala.collection.JavaConverters._
 
 class InsertIntervalTest extends FunSuite with ShouldMatchers {

@@ -3,9 +3,33 @@ package third;
 import util.ListNode;
 
 public class ReverseListWithKGroup {
+    // Divide and conqure
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if(k<=1) return head;
+
+        int i = 0;
+        ListNode current = head;
+        while(current != null && i<k){
+            current = current.next;
+            i++;
+        }
+
+        if(i<k) return head;
+        ListNode prev = null;
+        ListNode node = head;
+        while(node != current) {
+            ListNode next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+        head.next = reverseKGroup(current, k);
+        return prev;
+    }
+
     //Danger: be careful of the k group length!
     //Practice more!
-    public ListNode reverseKGroup(ListNode head, int k) {
+    public ListNode reverseKGroup_complex(ListNode head, int k) {
         if(head == null || k ==1) return head;
 
         //Check if the current list is longer than k nodes

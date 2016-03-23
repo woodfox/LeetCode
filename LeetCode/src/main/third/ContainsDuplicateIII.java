@@ -18,28 +18,20 @@ public class ContainsDuplicateIII {
      * 2. return false if t is negative!
      */
     public boolean containsNearbyAlmostDuplicate(int[] a, int k, int t) {
-        // return false if t < 0
-        if (k < 1 || t < 0) return false;
+        if(k<=0 || t<0) return false;
 
-        int n = a.length;
         k++;
-
         TreeSet<Long> set = new TreeSet();
-        for(int i=0;i<a.length;i++) {
-            if(set.size() >= k) {
-                set.remove((long)a[i-k]);
-            }
-
-            long low = (long)a[i] - t;
-            long high = (long)a[i] + t + 1;
-            SortedSet<Long> sub = set.subSet(low, high);
-            if(!sub.isEmpty()) {
+        for(int i=0;i<a.length;i++){
+            SortedSet<Long> sub = set.subSet((long)a[i]-t, true, (long)a[i]+t, true);
+            if(!sub.isEmpty()){
                 return true;
             }
-
             set.add((long)a[i]);
+            if(set.size()>=k) {
+                set.remove((long)a[i-k+1]);
+            }
         }
-
         return false;
     }
 

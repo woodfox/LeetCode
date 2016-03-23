@@ -93,7 +93,7 @@ public class WordLadderII {
         Node start = map.get(beginWord);
         Node end = map.get(endWord);
         LinkedList<Node> queue = new LinkedList<Node>();
-        // Set start depth to non-zero, so that it will not be visisted again!!!
+        // Set start depth to non-zero, so that it will not be visited again!!!
         start.depth = 1;
         queue.add(start);
 
@@ -171,5 +171,86 @@ public class WordLadderII {
         public Node(String w) {
             this.word = w;
         }
+    }
+
+    /**
+     * -------------------------------------------------------------
+     * Use Map to save parents, so do not need to build graph
+     */
+    public List<List<String>> findLadders_map(String begin, String end, Set<String> dict) {
+        dict.remove(begin);
+        dict.add(end);
+        LinkedList<String> q1 = new LinkedList();
+        LinkedList<Integer> q2 = new LinkedList();
+        q1.add(begin);
+        q2.add(1);
+
+        Map<String, List<String>> map = new HashMap();
+        map.put(begin, new ArrayList<String>());
+
+        Map<String, Integer> lengthMap = new HashMap();
+        while(!q1.isEmpty()){
+            String s = q1.removeFirst();
+            int len = q2.removeFirst();
+
+            if(s.equals(end)) {
+                break;
+            }
+
+            for(String t : getCandidates(s, dict)){
+                // Allow multiple access on same node if in same level
+                if(!lengthMap.containsKey(t)) {
+                    lengthMap.put(t, len+1);
+
+                    // Only add this node at the first time! Otherwise will TLE
+                    q1.add(t);
+                    q2.add(len+1);
+                } else if(len+1 > lengthMap.get(t)) {
+                    dict.remove(t);
+                    continue;
+                }
+
+                if(!map.containsKey(t)) map.put(t, new ArrayList<String>());
+                map.get(t).add(s);
+            }
+        }
+
+        return getPath(end, map);
+    }
+
+    private List<List<String>> getPath(String s, Map<String, List<String>> map) {
+        List<List<String>> r = new ArrayList();
+        if(!map.containsKey(s)) return r;
+
+        for(String t : map.get(s)){
+            List<List<String>> sub = getPath(t, map);
+            for(List<String> l : sub){
+                l.add(s);
+                r.add(l);
+            }
+        }
+
+        // For start node, there is no parents in the map
+        if(map.get(s).isEmpty()){
+            List<String> sub = new ArrayList();
+            sub.add(s);
+            r.add(sub);
+        }
+        return r;
+    }
+
+    private Set<String> getCandidates(String s, Set<String> dict){
+        Set<String> r = new HashSet();
+        StringBuffer sb = new StringBuffer(s);
+        for(int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            for(char d = 'a';d<='z';d++){
+                if(d==c) continue;
+                sb.setCharAt(i, d);
+                if(dict.contains(sb.toString())) r.add(sb.toString());
+            }
+            sb.setCharAt(i, c);
+        }
+        return r;
     }
 }

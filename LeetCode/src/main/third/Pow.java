@@ -1,6 +1,13 @@
 package third;
 
 public class Pow {
+    /**
+     * Time: O(logn)
+     *
+     * Be careful:
+     *   1. when n < 0
+     *   2. when x = -1
+     */
     public double pow(double x, int n) {
         if(n > 0) return power(x, n);
         else return 1/power(x, -1 * n);

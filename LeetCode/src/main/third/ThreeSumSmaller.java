@@ -20,28 +20,30 @@ public class ThreeSumSmaller {
     /**
      * Choose one element and check two sum smaller
      * Two sum smaller: Move pointer from start and end and count the total that sum < t
+     *
+     * Time: O(n^2)
      */
     int threeSumSmaller(int[] a, int t) {
         Arrays.sort(a);
-        int r = 0;
+        int total = 0;
         for(int i=0;i<a.length-2;i++){
-            r += twoSumSmaller(a, i+1, t-a[i]);
+            total += twoSumSmaller(a, i+1, t-a[i]);
         }
-        return r;
+        return total;
     }
     int twoSumSmaller(int[] a, int p, int t){
-        int x = 0;
+        int total = 0;
         int l = p;
         int r = a.length-1;
         while(l < r) {
-            while(l < r && a[l] + a[r] >= t) {
+            if(a[l] + a[r] >= t) {
                 r--;
+            } else {
+                total += (r-l);
+                l++;
             }
-
-            x += (r - l);
-            l++;
         }
-        return x;
+        return total;
     }
 
     /**

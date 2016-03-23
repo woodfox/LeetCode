@@ -3,7 +3,8 @@ package third;
 import java.util.*;
 
 public class GenerateParentheses {
-
+    // f(n) = f(0)+f(n-1)+f(1)+f(n-2)+...
+    // Time: O(2^n)?
     public List<String> generateParenthesis(int n) {
         Map<Integer, Set<String>> map = new HashMap<Integer, Set<String>>();
 
@@ -12,7 +13,7 @@ public class GenerateParentheses {
         return result;
     }
 
-    // Danger: import idea! For inner = 0..n-1 => Set of (inner) outer
+    // Danger: important idea! For inner = 0..n-1 => Set of (inner) outer
     private Set<String> generate(int n, Map<Integer, Set<String>> map) {
         if(map.get(n) != null) return map.get(n);
 

@@ -14,6 +14,14 @@ package third;
  28 -> AB
  */
 public class ExcelColumnTitle {
+    public String convertToTitle(int n) {
+        if(n==0) return "";
+        else {
+            char c = (char)('A' + (n-1)%26);
+            return convertToTitle((n-1)/26) + c;
+        }
+    }
+
     /**
      * Convert Integer to 26-based character string
      * Convert to 0-based index!!
@@ -22,7 +30,7 @@ public class ExcelColumnTitle {
      *  1. should use 0-based index
      *  2. it may be AAAAAAB
      */
-    public String convertToTitle(int n) {
+    public String convertToTitle_complex(int n) {
         if(n < 1) {
             return "";
         }
